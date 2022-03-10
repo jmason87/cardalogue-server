@@ -33,6 +33,19 @@ class TopicCommentView(ViewSet):
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
         
+    def update(self, request, pk):
+        """Handle PUT requests for a topic_comments
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        topic_comment = TopicComment.objects.get(pk=pk)
+        serializer = CreateTopicCommentSerializer(topic_comment, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+        
     def destroy(self, request, pk):
         """Handle DELETE requests for topic_comment
         Returns:
