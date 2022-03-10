@@ -1,0 +1,12 @@
+[
+    {
+        "model": "cardalogueapi.topiccomment",
+        "pk": 1,
+        "fields": {
+            "content": "This is a topic comment",
+            "date": "2012-09-04 12:12:03",
+            "posted_by": 1,
+            "topic": 1
+        }
+    }
+]

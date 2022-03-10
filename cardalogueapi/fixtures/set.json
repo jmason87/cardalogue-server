@@ -1,0 +1,20 @@
+[
+    {
+        "model": "cardalogueapi.set",
+        "pk": 1,
+        "fields": {
+            "name": "Upper Deck Series 1 Hockey",
+            "manufacturer": "Upper Deck",
+            "year": "2020-2021"
+        }
+    },
+    {
+        "model": "cardalogueapi.set",
+        "pk": 2,
+        "fields": {
+            "name": "Upper Deck Series 2 Hockey",
+            "manufacturer": "Upper Deck",
+            "year": "2020-2021"
+        }
+    }
+]

@@ -1,0 +1,16 @@
+[
+    {
+        "model": "cardalogueapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "Rookie"
+        }
+    },
+    {
+        "model": "cardalogueapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "Autographed"
+        }
+    }
+]

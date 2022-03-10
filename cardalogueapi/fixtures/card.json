@@ -1,0 +1,16 @@
+[
+    {
+        "model": "cardalogueapi.card",
+        "pk": 1,
+        "fields": {
+            "first_name": "Kirill",
+            "last_name": "Kaprizov",
+            "card_number": 451,
+            "card_category": 1,
+            "image": "",
+            "is_approved": true,
+            "set": 2,
+            "tag": []
+        }
+    }
+]

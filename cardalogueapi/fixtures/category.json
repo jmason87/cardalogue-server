@@ -1,0 +1,9 @@
+[
+    {
+        "model": "cardalogueapi.category",
+        "pk": 1,
+        "fields": {
+            "label": "Hockey"
+        }
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "cardalogueapi.topic",
+        "pk": 1,
+        "fields": {
+            "title": "This is a topic",
+            "created_by": 1,
+            "date_created": "2012-09-04 12:12:03"
+        }
+    }
+]

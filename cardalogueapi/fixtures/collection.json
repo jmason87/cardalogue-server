@@ -1,0 +1,12 @@
+[
+    {
+        "model": "cardalogueapi.collection",
+        "pk": 1,
+        "fields": {
+            "name": "collection 1",
+            "date": "2022-02-19 12:00:00",
+            "user": 1,
+            "card": []   
+        }
+    }
+]
