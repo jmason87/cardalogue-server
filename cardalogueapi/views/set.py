@@ -1,7 +1,8 @@
 # from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from rest_framework import serializers
+from rest_framework import serializers, status
+from django.core.exceptions import ValidationError
 from cardalogueapi.models import Set
 
 class SetView(ViewSet):
@@ -17,7 +18,26 @@ class SetView(ViewSet):
         serializer = SetSerializer(single_set)
         return Response(serializer.data)
 
+    def create(self, request):
+        """Handle POST operations
+
+        Returns:
+            Response -- JSON serialized game instance
+        """
+        try:
+            serializer = CreateSetSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
 class SetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Set
         fields = ('__all__')
+
+class CreateSetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Set
+        fields = ('id', 'name', 'manufacturer', 'year')
