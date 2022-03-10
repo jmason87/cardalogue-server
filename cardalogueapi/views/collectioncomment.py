@@ -32,6 +32,19 @@ class CollectionCommentView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+        
+    def destroy(self, request, pk):
+        """Handle DELETE requests for collection_comment
+        Returns:
+            Response -- empty body with 204 status code
+        """
+        try:
+            collection_comment = CollectionComment.objects.get(pk=pk)
+            collection_comment.delete()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        except CollectionComment.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
 
 class CollectionCommentSerializer(serializers.ModelSerializer):
     class Meta:
