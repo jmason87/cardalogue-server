@@ -32,6 +32,19 @@ class SetView(ViewSet):
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
+    def update(self, request, pk):
+        """Handle PUT requests for a set
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        single_set = Set.objects.get(pk=pk)
+        serializer = CreateSetSerializer(single_set, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+
     def destroy(self, request, pk):
         """Handle DELETE requests for set
         Returns:

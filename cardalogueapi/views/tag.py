@@ -32,6 +32,19 @@ class TagView(ViewSet):
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
         
+    def update(self, request, pk):
+        """Handle PUT requests for a tag
+
+        Returns:
+            Response -- Empty body with 204 status code
+        """
+        tag = Tag.objects.get(pk=pk)
+        serializer = TagSerializer(tag, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+        
     def destroy(self, request, pk):
         """Handle DELETE requests for tag
         Returns:
