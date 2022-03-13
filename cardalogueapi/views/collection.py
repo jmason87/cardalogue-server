@@ -57,12 +57,11 @@ class CollectionView(ViewSet):
         except Collection.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
-
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = ('__all__')
-        depth = 1
+        depth = 2
 
 class CreateCollectionSerializer(serializers.ModelSerializer):
     class Meta:

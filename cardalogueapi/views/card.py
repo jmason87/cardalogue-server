@@ -33,7 +33,7 @@ class CardView(ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
     def update(self, request, pk):
-        """Handle PUT requests for a game
+        """Handle PUT requests for a card
 
         Returns:
             Response -- Empty body with 204 status code
