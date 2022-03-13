@@ -3,7 +3,8 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from django.core.exceptions import ValidationError
-from cardalogueapi.models import Collection
+from cardalogueapi.models import Collection, Card
+from rest_framework.decorators import action
 
 class CollectionView(ViewSet):
     def list (self, request):
@@ -57,12 +58,21 @@ class CollectionView(ViewSet):
         except Collection.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
+    @action(methods=['post'], detail=True)
+    def addcard(self, request, pk):
+        """Post request for a user to sign up for an event"""
+
+        card = Card.objects.get(1)
+        collection = Collection.objects.get(pk=pk)
+        collection.card.add(card)
+        return Response({'message': 'Card added'}, status=status.HTTP_201_CREATED)
+
 
 class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = ('__all__')
-        depth = 1
+        depth = 2
 
 class CreateCollectionSerializer(serializers.ModelSerializer):
     class Meta:

@@ -7,3 +7,4 @@ from .set import SetView
 from .topic import TopicView
 from .topiccomment import TopicCommentView
 from .auth import login_user, register_user
+from .user import UserView
