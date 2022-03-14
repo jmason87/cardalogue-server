@@ -20,7 +20,7 @@ from rest_framework import routers
 from cardalogueapi.views import (CardView, CategoryView, CollectionView,
                                  CollectionCommentView, SetView, TagView,
                                  TopicView, TopicCommentView, login_user,
-                                 register_user, UserView)
+                                 register_user, UserView, CardCollectionView)
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'cards', CardView, 'card')
@@ -32,6 +32,7 @@ router.register(r'tags', TagView, 'tag')
 router.register(r'topics', TopicView, 'topic')
 router.register(r'topiccomments', TopicCommentView, 'topiccomment')
 router.register(r'users', UserView, 'user')
+router.register(r'cardcollections', CardCollectionView, 'cardcollection')
 
 
 
