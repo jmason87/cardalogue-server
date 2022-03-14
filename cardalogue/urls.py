@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import (path, include)
+from django.conf.urls.static import static, settings
 from rest_framework import routers
 from cardalogueapi.views import (CardView, CategoryView, CollectionView,
                                  CollectionCommentView, SetView, TagView,
@@ -39,4 +40,4 @@ urlpatterns = [
     path('register', register_user),
     path('login', login_user),
     path('', include(router.urls)),
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
