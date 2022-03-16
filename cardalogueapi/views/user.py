@@ -1,7 +1,7 @@
 # from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
-from rest_framework import serializers
+from rest_framework import serializers, status
 from rest_framework.decorators import action
 
 from django.contrib.auth.models import User
@@ -27,6 +27,31 @@ class UserView(ViewSet):
         serializer = UserSerializer(user)
         return Response(serializer.data)
     
+    @action(methods=['put'], detail=True)
+    def admin(self, request, pk):
+        """Put request to is_staff"""
+
+        user = User.objects.get(pk=pk)
+        user.is_staff = True
+        user.save()
+
+        return Response({'message': 'User is now an admin'}, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(methods=['put'], detail=True)
+    def collector(self, request, pk):
+        """Put request to is_staff"""
+
+        user = User.objects.get(pk=pk)
+        admin_list = User.objects.filter(is_staff=True, is_active=True)
+        serialized = UserSerializer(admin_list, many=True)
+
+        if len(serialized.data) <= 1 and user.is_staff is True:
+            return Response({'message': 'Cannot be changed- this is the only active admin remaining'}, status=status.HTTP_409_CONFLICT)
+        else:
+            user.is_staff = False
+            user.save()
+            return Response({'message': 'User is now an author'}, status=status.HTTP_204_NO_CONTENT)
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
