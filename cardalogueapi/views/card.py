@@ -1,8 +1,10 @@
 # from django.http import HttpResponseServerError
+import stat
 from django.forms import ValidationError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
+from rest_framework.decorators import action
 from django.core.files.base import ContentFile
 import uuid
 import base64
@@ -63,6 +65,13 @@ class CardView(ViewSet):
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Card.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+    
+    @action(methods=['put'], detail=True)
+    def approve(self, request, pk):
+        card = Card.objects.get(pk=pk)
+        card.is_approved = True
+        card.save()
+        return Response({'message': 'Card is approved'}, status=status.HTTP_204_NO_CONTENT)
 
 
 class CardSerializer(serializers.ModelSerializer):
