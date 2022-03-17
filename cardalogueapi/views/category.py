@@ -31,7 +31,7 @@ class CategoryView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
-        
+
     def update(self, request, pk):
         """Handle PUT requests for a category
 
