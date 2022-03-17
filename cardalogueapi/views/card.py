@@ -8,12 +8,22 @@ from rest_framework.decorators import action
 from django.core.files.base import ContentFile
 import uuid
 import base64
+from django.db.models import Q
 from cardalogueapi.models import Card
 
 class CardView(ViewSet):
     def list (self, request):
         """handes GET all"""
+        
+        search_text = self.request.query_params.get('q', None)
+        
         cards = Card.objects.all()
+        
+        if search_text is not None:
+            cards=Card.objects.filter(
+                Q(first_name__contains=search_text) |
+                Q(last_name__contains=search_text)
+            )
         serializer = CardSerializer(cards, many=True)
         return Response(serializer.data)
 
