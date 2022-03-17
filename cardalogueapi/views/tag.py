@@ -31,7 +31,7 @@ class TagView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
-        
+
     def update(self, request, pk):
         """Handle PUT requests for a tag
 
@@ -44,7 +44,6 @@ class TagView(ViewSet):
         serializer.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-        
     def destroy(self, request, pk):
         """Handle DELETE requests for tag
         Returns:
@@ -56,8 +55,6 @@ class TagView(ViewSet):
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Tag.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
-
-
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:

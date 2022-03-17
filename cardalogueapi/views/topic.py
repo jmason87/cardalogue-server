@@ -22,7 +22,7 @@ class TopicView(ViewSet):
         """Handle POST operations
 
         Returns:
-            Response -- JSON serialized game instance
+            Response -- JSON serialized topic instance
         """
         try:
             user = request.auth.user
@@ -32,7 +32,7 @@ class TopicView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
-        
+
     def update(self, request, pk):
         """Handle PUT requests for a topic
 
@@ -45,7 +45,6 @@ class TopicView(ViewSet):
         serializer.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
-        
     def destroy(self, request, pk):
         """Handle DELETE requests for topic
         Returns:

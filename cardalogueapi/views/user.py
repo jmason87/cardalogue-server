@@ -18,7 +18,7 @@ class UserView(ViewSet):
         user = User.objects.get(pk=pk)
         serializer = UserSerializer(user)
         return Response(serializer.data)
-    
+
     @action(methods=['get'], detail=False)
     def current(self, request):
         """Only get actors back that are currently active on a book"""
@@ -26,7 +26,7 @@ class UserView(ViewSet):
         user=request.auth.user
         serializer = UserSerializer(user)
         return Response(serializer.data)
-    
+
     @action(methods=['put'], detail=True)
     def admin(self, request, pk):
         """Put request to is_staff"""
@@ -36,7 +36,7 @@ class UserView(ViewSet):
         user.save()
 
         return Response({'message': 'User is now an admin'}, status=status.HTTP_204_NO_CONTENT)
-    
+
     @action(methods=['put'], detail=True)
     def collector(self, request, pk):
         """Put request to is_staff"""
@@ -46,7 +46,8 @@ class UserView(ViewSet):
         serialized = UserSerializer(admin_list, many=True)
 
         if len(serialized.data) <= 1 and user.is_staff is True:
-            return Response({'message': 'Cannot be changed- this is the only active admin remaining'}, status=status.HTTP_409_CONFLICT)
+            return Response({'message': 'this is the only active admin remaining'},
+                            status=status.HTTP_409_CONFLICT)
         else:
             user.is_staff = False
             user.save()
