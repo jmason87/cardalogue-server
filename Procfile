@@ -1,0 +1,1 @@
+web: gunicorn cardalogue-server.wsgi --log-file -
